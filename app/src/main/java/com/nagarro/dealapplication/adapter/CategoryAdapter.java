@@ -1,13 +1,18 @@
 package com.nagarro.dealapplication.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.nagarro.dealapplication.OfferListActivity;
 import com.nagarro.dealapplication.R;
 import com.nagarro.dealapplication.databinding.CategoryListRowItemBinding;
 import com.nagarro.dealapplication.viewmodel.CategoryTypeViewModel;
@@ -16,7 +21,13 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
 
+    private static final String SELECTED_CATEGORY = "selected_category";
     private List<CategoryTypeViewModel> categoryList;
+    private final Context context;
+
+    public CategoryAdapter(Context context){
+        this.context = context;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
@@ -43,8 +54,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryAdapter.MyViewHolder holder, final int position) {
         holder.bind(categoryList.get(position));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context , OfferListActivity.class);
+                intent.putExtra(SELECTED_CATEGORY , categoryList.get(position).getName());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
