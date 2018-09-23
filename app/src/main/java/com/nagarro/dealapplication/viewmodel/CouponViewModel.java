@@ -1,8 +1,8 @@
-package com.nagarro.dealapplication.api.response;
+package com.nagarro.dealapplication.viewmodel;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Coupon {
+public class CouponViewModel {
 
     @SerializedName("title")
     private String title;
@@ -15,7 +15,7 @@ public class Coupon {
     @SerializedName("location")
     private String location;
 
-    public Coupon(String title, String description, String validity, String code,String location) {
+    public CouponViewModel(String title, String description, String validity, String code, String location) {
         this.title = title;
         this.description = description;
         this.validity = validity;

@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:text="@{categoryTypeViewModel.categoryName}"
+                    android:text="@{categoryTypeViewModel.name}"
                     android:textStyle="bold"
                     android:gravity="center_horizontal"
                     android:textSize="30sp" />
@@ -50,7 +50,7 @@
                     android:layout_below="@id/category"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@{categoryTypeViewModel.categoryIon}"/>
+                    android:src="@{categoryTypeViewModel.icon}"/>
 
             </RelativeLayout>
 
