@@ -1,6 +1,7 @@
 package com.nagarro.dealapplication.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.nagarro.dealapplication.AvailOfferActivity;
 import com.nagarro.dealapplication.R;
 import com.nagarro.dealapplication.databinding.CouponListRowBinding;
 import com.nagarro.dealapplication.viewmodel.CouponViewModel;
@@ -50,14 +52,13 @@ public class CouponsAdapter extends RecyclerView.Adapter<CouponsAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.bind(couponList.get(position));
 
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context , OfferListActivity.class);
-                intent.putExtra(SELECTED_CATEGORY_POSITION , position);
+                Intent intent = new Intent(context , AvailOfferActivity.class);
                 context.startActivity(intent);
             }
-        });*/
+        });
     }
 
     @Override

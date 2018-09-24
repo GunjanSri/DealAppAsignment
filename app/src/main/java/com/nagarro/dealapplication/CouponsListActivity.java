@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.nagarro.dealapplication.adapter.CouponsAdapter;
 
-public class OfferListActivity extends AppCompatActivity {
+public class CouponsListActivity extends AppCompatActivity {
 
     private static final String SELECTED_CATEGORY = "selected_category";
     private int couponCategoryPosition;
@@ -17,7 +17,7 @@ public class OfferListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offer_list);
+        setContentView(R.layout.activity_coupon_list);
         storage = Storage.getInstance(this);
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){

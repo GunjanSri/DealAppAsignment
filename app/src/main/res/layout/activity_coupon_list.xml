@@ -5,9 +5,9 @@
     android:background="@color/viewBg">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/offerListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/offerListView"
         android:padding="10dp">
 
     </android.support.v7.widget.RecyclerView>

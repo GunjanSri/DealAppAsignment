@@ -3,5 +3,6 @@
     <string name="search_title">Search by location</string>
     <string name="category_title">Choose Category</string>
     <string name="app_version">Version %1$s</string>
+    <string name="success_avail_offer">Hurray! \n You have successfully availed this offer.</string>
 
 </resources>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="categoryTypeViewModel"
             type="com.nagarro.dealapplication.viewmodel.CategoryTypeViewModel"></variable>
@@ -29,28 +31,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/album_cover_height"
                     android:background="@color/cardview_shadow_start_color"
-                    android:shadowColor="@color/colorDarkGrey"
                     android:clickable="true"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitXY"
+                    android:shadowColor="@color/colorDarkGrey" />
 
                 <TextView
                     android:id="@+id/category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@{categoryTypeViewModel.name}"
-                    android:textStyle="bold"
                     android:gravity="center_horizontal"
-                    android:textSize="30sp" />
+                    android:text="@{categoryTypeViewModel.name}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/category_icon"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_below="@id/category"
-                    android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@{categoryTypeViewModel.icon}"/>
+                    android:layout_marginTop="10dp"
+                    android:src="@{categoryTypeViewModel.icon}" />
 
             </RelativeLayout>
 

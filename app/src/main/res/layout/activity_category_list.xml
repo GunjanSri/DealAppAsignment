@@ -3,19 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategoryListActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".CategoryListActivity">
 
     <TextView
         android:id="@+id/categoryTitle"
-        android:text="@string/category_title"
-        style="@style/TextTile"/>
+        style="@style/TextTile"
+        android:text="@string/category_title" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/offerCategoryListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
-        android:id="@+id/offerCategoryListView">
+        android:padding="10dp">
 
     </android.support.v7.widget.RecyclerView>
 
