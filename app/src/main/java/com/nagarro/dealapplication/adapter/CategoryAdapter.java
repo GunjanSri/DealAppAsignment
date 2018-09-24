@@ -16,12 +16,13 @@ import com.nagarro.dealapplication.OfferListActivity;
 import com.nagarro.dealapplication.R;
 import com.nagarro.dealapplication.databinding.CategoryListRowItemBinding;
 import com.nagarro.dealapplication.viewmodel.CategoryTypeViewModel;
+import com.nagarro.dealapplication.viewmodel.CouponViewModel;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
 
-    private static final String SELECTED_CATEGORY = "selected_category";
+    private static final String SELECTED_CATEGORY_POSITION = "selected_category_position";
     private List<CategoryTypeViewModel> categoryList;
     private final Context context;
 
@@ -61,7 +62,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context , OfferListActivity.class);
-                intent.putExtra(SELECTED_CATEGORY , categoryList.get(position).getName());
+                intent.putExtra(SELECTED_CATEGORY_POSITION , position);
                 context.startActivity(intent);
             }
         });

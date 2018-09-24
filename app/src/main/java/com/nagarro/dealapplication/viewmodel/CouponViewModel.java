@@ -1,8 +1,12 @@
 package com.nagarro.dealapplication.viewmodel;
 
+import android.databinding.BaseObservable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class CouponViewModel {
+import java.io.Serializable;
+
+public class CouponViewModel extends BaseObservable implements Serializable{
 
     @SerializedName("title")
     private String title;

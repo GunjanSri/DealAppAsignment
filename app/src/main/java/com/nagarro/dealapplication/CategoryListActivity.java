@@ -20,12 +20,12 @@ public class CategoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category_list);
         storage = Storage.getInstance(this);
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter();
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this);
         categoryAdapter.setUpdatedList(storage.getOffers().getCategories());
         recyclerView = findViewById(R.id.offerCategoryListView);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
-        recyclerView.setAdapter(new CategoryAdapter());
+        recyclerView.setAdapter(categoryAdapter);
 
         FbTracker.getAnalyticsInstance(this);
 
