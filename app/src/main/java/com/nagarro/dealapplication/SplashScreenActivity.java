@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.nagarro.dealapplication.api.RestServiceProtocol;
 import com.nagarro.dealapplication.api.RetrofitInstance;
+import com.nagarro.dealapplication.database.MyFirebaseDatabase;
 import com.nagarro.dealapplication.viewmodel.OfferViewModel;
 
 import retrofit2.Call;
@@ -46,8 +48,13 @@ public class SplashScreenActivity extends AppCompatActivity{
         Storage storage = Storage.getInstance(this);
         storage.saveOffers(offers);
 
-        Intent intent = new Intent(SplashScreenActivity.this , CategoryListActivity.class);
+        MyFirebaseDatabase db = new MyFirebaseDatabase();
+        db.getFirebaseDbInstance(this);
+        db.writeDataToDb();
+        db.readFromDb();
+
+       /* Intent intent = new Intent(SplashScreenActivity.this , CategoryListActivity.class);
         startActivity(intent);
-        SplashScreenActivity.this.finish();
+        SplashScreenActivity.this.finish();*/
     }
 }

@@ -33,7 +33,7 @@ public class CouponsAdapter extends RecyclerView.Adapter<CouponsAdapter.MyViewHo
             this.binding = binding;
         }
 
-        public void bind(CouponListRowBinding item) {
+        public void bind(CouponViewModel item) {
             binding.setVariable(BR.couponViewModel,item);
             binding.executePendingBindings();
         }

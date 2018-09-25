@@ -1,0 +1,53 @@
+{
+	"success": true,
+	"offers": [{
+			"name": "Food",
+			"icon": "",
+			"id": "FOOD-ID",
+			"coupons": [{
+					"title": "FoodPanda",
+					"description": "This coupon can be used in any foodpanda store.",
+					"location": "Gurgaon",
+					"validity": "15-Oct-2018",
+					"code": "FOODPANDA-OFFER001"
+				},
+				{
+					"title": "Uber Food",
+					"description": "This coupon can be used for Uber Food.",
+					"location": "Delhi",
+					"validity": "20-Oct-2018",
+					"code": "UBERFOOD-OFFER001"
+				},
+
+				{
+					"title": "Zomato",
+					"description": "This coupon can be used for any store in zomato.",
+					"location": "Gurgaon",
+					"validity": "20-Oct-2018",
+					"code": "ZOMATO-AMAZEOFFER"
+				}
+
+			]
+		},
+		{
+			"name": "Movies",
+			"icon": "",
+			"id": "MOVIE-ID",
+			"coupons": [{
+					"title": "Book My Show",
+					"description": "This coupon can be avail only once.",
+					"location": "Gurgaon",
+					"validity": "15-Oct-2018",
+					"code": "BOOKMYSHOW-OFFER"
+				},
+				{
+					"title": "PVR",
+					"description": "This coupon can be avail only once.",
+					"location": "Gurgaon",
+					"validity": "15-Oct-2018",
+					"code": "PVR-OFFER"
+				}
+			]
+		}
+	]
+}
