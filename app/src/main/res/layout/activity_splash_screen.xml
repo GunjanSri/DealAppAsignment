@@ -20,7 +20,8 @@
         android:layout_centerHorizontal="true"
         android:paddingBottom="10dp"
         android:text="@string/app_version"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:id="@+id/versionText"/>
 
 
 </RelativeLayout>

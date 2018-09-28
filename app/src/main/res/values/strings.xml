@@ -5,4 +5,18 @@
     <string name="app_version">Version %1$s</string>
     <string name="success_avail_offer">Hurray! \n You have successfully availed this offer.</string>
 
+    <!--Register Screen -->
+    <string name="hint_email_address">Enter email address</string>
+    <string name="hint_password">Enter password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="btn_register">REGISTER</string>
+
+    <!-- Sign In Screen -->
+    <string name="btn_signin">SIGN IN</string>
+
+    <!-- Error Messages -->
+    <string name="error_invalid_email_address">Enter valid email address</string>
+    <string name="error_password_not_matching">Passwords are not matching</string>
+    <string name="error_authentication_failed">Authentication failed</string>
+
 </resources>

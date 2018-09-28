@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="loginViewModel"
+            type="com.nagarro.dealapplication.viewmodel.LoginViewModel">
+
+        </variable>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/emailText"
+                style="@style/RegisterEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_email_address"
+                android:inputType="textEmailAddress"
+                android:text="@={loginViewModel.emailAddress}" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/passwordText"
+                style="@style/RegisterEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:text="@={loginViewModel.password}" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/signinButton"
+            style="@style/Button"
+            android:text="@string/btn_signin"
+            android:onClick="@{() -> loginViewModel.checkAuthenticatedUser()}"/>
+
+        <Button
+            android:id="@+id/registerButton"
+            style="@style/Button"
+            android:onClick="@{() -> loginViewModel.openRegisterScreen()}"
+            android:text="@string/btn_register" />
+
+    </LinearLayout>
+</layout>
