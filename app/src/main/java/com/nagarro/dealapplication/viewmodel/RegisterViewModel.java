@@ -59,11 +59,11 @@ public class RegisterViewModel extends BaseObservable {
         if(!Utility.validEmailAddress(emailAddress)){
             Log.d(TAG , "Invalid email Address: " + emailAddress );
             Utility.showToastMessage(context,R.string.error_invalid_email_address);
-        }/*else if(confirmPassword != password){
+        }else if(! password.equals(confirmPassword)){
             Log.d(TAG , "Password not matching: " + "Password: " + password + "Confirm Passowrd: " +
                                                             confirmPassword);
             Utility.showToastMessage(context,R.string.error_password_not_matching);
-        }*/else{
+        }else{
             Log.d(TAG , "Registration started ...");
             registerNewEmail();
         }
@@ -85,7 +85,6 @@ public class RegisterViewModel extends BaseObservable {
                         } else {
                             Log.w(TAG, "onComplete: failure"+ task.isSuccessful());
                             Utility.showToastMessage(context , R.string.error_authentication_failed);
-                            //updateUI(null);
                         }
                     }
                 });
