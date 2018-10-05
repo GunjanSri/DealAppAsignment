@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +45,8 @@ public class CategoryListActivity extends AppCompatActivity {
 
     private void readCategoryListFromDb(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseReference.child("categories");
+        Query query = databaseReference.child("deals").orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser()
+                                            .getUid());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

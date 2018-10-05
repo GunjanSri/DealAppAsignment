@@ -82,6 +82,7 @@ public class RegisterViewModel extends BaseObservable {
                                     getCurrentUser().getUid());
 
                             FirebaseAuth.getInstance().signOut();
+                            context.finish();
                         } else {
                             Log.w(TAG, "onComplete: failure"+ task.isSuccessful());
                             Utility.showToastMessage(context , R.string.error_authentication_failed);

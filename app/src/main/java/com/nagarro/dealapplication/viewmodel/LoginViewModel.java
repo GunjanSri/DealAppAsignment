@@ -1,26 +1,30 @@
 package com.nagarro.dealapplication.viewmodel;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.nagarro.dealapplication.CategoryListActivity;
 import com.nagarro.dealapplication.R;
 import com.nagarro.dealapplication.RegisterActivity;
 import com.nagarro.dealapplication.util.Utility;
-
-import okhttp3.internal.Util;
 
 public class LoginViewModel extends BaseObservable {
 
     private static final String TAG = LoginViewModel.class.getSimpleName();
     private String emailAddress;
     private String password;
-    private Context context;
+    private Activity context;
 
-    public LoginViewModel(Context context){
+    public LoginViewModel(Activity context){
         this.context = context;
     }
 
@@ -46,9 +50,26 @@ public class LoginViewModel extends BaseObservable {
          if(!Utility.validEmailAddress(emailAddress)){
              Log.d(TAG , "Invalid Email Address: " + emailAddress);
              Utility.showToastMessage(context,R.string.error_invalid_email_address);
-         }else{
-             Log.d(TAG , "SIgn In Started ...");
-
+         } else {
+             Log.d(TAG, "Sign In Started ...");
+             FirebaseAuth.getInstance().signInWithEmailAndPassword(emailAddress, password)
+                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                         @Override
+                         public void onComplete(@NonNull Task<AuthResult> task) {
+                             Log.d(TAG, "onComplete: " + "authentication completed");
+                             if (task.isSuccessful()) {
+                                 Intent intent = new Intent(context, CategoryListActivity.class);
+                                 context.startActivity(intent);
+                                 context.finish();
+                             }
+                         }
+                     }).addOnFailureListener(new OnFailureListener() {
+                         @Override
+                         public void onFailure(@NonNull Exception e) {
+                             Log.d(TAG, "onFailure: " + "authentication failed");
+                             Utility.showToastMessage(context, R.string.error_authentication_failed);
+                         }
+                     });
          }
     }
 
