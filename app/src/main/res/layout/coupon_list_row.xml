@@ -1,4 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@color/colorLightGrey">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iconImageView"/>
+
+    <!--<TextView
+        android:id="@+id/titleTextView"
+        style="@style/CouponText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dgj"/>-->
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        style="@style/CouponText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iconImageView"
+        android:text="dgj"/>
+
+    <TextView
+        android:id="@+id/locationTextView"
+        style="@style/CouponText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionTextView"
+        android:text="dgj"/>
+
+    <TextView
+        android:id="@+id/validitytextView"
+        style="@style/CouponText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locationTextView"
+        android:text="dgj"/>
+
+    <TextView
+        android:id="@+id/codeTextView"
+        style="@style/CouponCodeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/descriptionTextView"
+        android:text="dgj"/>
+
+</RelativeLayout>
+
+<!--
 <layout>
 
     <data>
@@ -57,4 +112,4 @@
             android:text="@{couponViewModel.code}" />
 
     </RelativeLayout>
-</layout>
+</layout>-->

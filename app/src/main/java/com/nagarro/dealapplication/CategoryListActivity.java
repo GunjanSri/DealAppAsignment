@@ -13,8 +13,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.nagarro.dealapplication.adapter.CategoryAdapter;
+import com.nagarro.dealapplication.adapter.CategoryListAdapter;
 import com.nagarro.dealapplication.analytics.FbTracker;
+import com.nagarro.dealapplication.model.Category;
+import com.nagarro.dealapplication.model.Coupon;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryListActivity extends AppCompatActivity {
 
@@ -29,9 +34,10 @@ public class CategoryListActivity extends AppCompatActivity {
         storage = Storage.getInstance(this);
 
         readCategoryListFromDb();
+        storeDealsInPreference();
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this);
-        categoryAdapter.setUpdatedList(storage.getOffers().getCategories());
+        CategoryListAdapter categoryAdapter = new CategoryListAdapter(this);
+        categoryAdapter.setCategoryList(storeDealsInPreference());
         recyclerView = findViewById(R.id.offerCategoryListView);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
@@ -45,7 +51,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
     private void readCategoryListFromDb(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseReference.child("deals").orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser()
+        Query query = databaseReference.child("categories").orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser()
                                             .getUid());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -61,5 +67,21 @@ public class CategoryListActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private List<Category> storeDealsInPreference(){
+
+        ArrayList<Category> categories = new ArrayList<>();
+        ArrayList<Coupon> coupons = new ArrayList<>();
+        coupons.add(new Coupon("Swiggy" , "dsgdkshldshlhls" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/swiggy.png?alt=media&token=4cd91ddf-e016-4f40-9280-a5fe0814e4c4",
+                "Gurgaon" , "31-Oct-2018" , "CODE-001"));
+        categories.add(new Category("food" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
+                coupons));
+
+        categories.add(new Category("movies" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
+                coupons));
+
+        storage.saveOffers(categories);
+        return categories;
     }
 }

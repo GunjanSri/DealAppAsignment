@@ -14,14 +14,11 @@ public class CategoryTypeViewModel extends BaseObservable {
     @SerializedName("icon")
     private String icon;
     @SerializedName("id")
-    private String id;
-    @SerializedName("coupons")
     private List<CouponViewModel> coupons;
 
-    public CategoryTypeViewModel(String name , String icon , String id , List<CouponViewModel> couponViewModels){
+    public CategoryTypeViewModel(String name , String icon , List<CouponViewModel> couponViewModels){
         this.name = name;
         this.icon = icon;
-        this.id = id;
         this.coupons = couponViewModels;
     }
 
@@ -36,33 +33,8 @@ public class CategoryTypeViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getId() {
-        return id;
-    }
-
-    @Bindable
     public List<CouponViewModel> getCoupons() {
         return coupons;
     }
 
-   /* private String categoryName;
-    private String categoryIon;
-
-    @Bindable
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    @Bindable
-    public String getCategoryIon() {
-        return categoryIon;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public void setCategoryIon(String categoryIon) {
-        this.categoryIon = categoryIon;
-    }*/
 }

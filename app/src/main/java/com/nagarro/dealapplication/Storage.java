@@ -5,13 +5,15 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.nagarro.dealapplication.viewmodel.OfferViewModel;
+import com.nagarro.dealapplication.model.Category;
+import com.nagarro.dealapplication.viewmodel.Deal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
     private final String STORAGE_ID = "offer_storage";
-    private final String OFFER_LIST_KEY = "offer_list_key";
+    private final String DEALS_KEY = "deals_key";
     private final Gson gson = new Gson();
     private static Storage instance;
 
@@ -31,16 +33,16 @@ public class Storage {
         return instance;
     }
 
-    public void saveOffers(OfferViewModel offer){
-        String json = gson.toJson(offer);
+    public void saveOffers(ArrayList<Category> deals){
+        String json = gson.toJson(deals);
         editor = sharedPreferences.edit();
-        editor.putString(OFFER_LIST_KEY , json);
+        editor.putString(DEALS_KEY , json);
         editor.commit();
     }
 
-    public OfferViewModel getOffers(){
-        String json = sharedPreferences.getString(OFFER_LIST_KEY , null);
-        OfferViewModel offer = gson.fromJson(json , new TypeToken<List<OfferViewModel>>(){}.getType());
-        return offer;
+    public ArrayList<Category> getOffers(){
+        String json = sharedPreferences.getString(DEALS_KEY , null);
+        ArrayList<Category> deals = gson.fromJson(json , new TypeToken<List<Category>>(){}.getType());
+        return deals;
     }
 }

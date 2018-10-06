@@ -63,7 +63,7 @@ public class SplashScreenActivity extends AppCompatActivity{
         });*/
     }
 
-    private void generateOfferList(OfferViewModel offers) {
+    /*private void generateOfferList(OfferViewModel offers) {
         Storage storage = Storage.getInstance(this);
         storage.saveOffers(offers);
 
@@ -72,8 +72,8 @@ public class SplashScreenActivity extends AppCompatActivity{
         db.writeDataToDb();
         db.readFromDb();
 
-       /* Intent intent = new Intent(SplashScreenActivity.this , CategoryListActivity.class);
+       *//* Intent intent = new Intent(SplashScreenActivity.this , CategoryListActivity.class);
         startActivity(intent);
-        SplashScreenActivity.this.finish();*/
-    }
+        SplashScreenActivity.this.finish();*//*
+    }*/
 }
