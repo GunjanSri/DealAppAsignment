@@ -28,8 +28,8 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.category);
-            icon = (ImageView) view.findViewById(R.id.category_icon);
+            name = view.findViewById(R.id.category);
+            icon = view.findViewById(R.id.category_icon);
         }
     }
 

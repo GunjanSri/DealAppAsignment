@@ -1,11 +1,8 @@
 package com.nagarro.dealapplication.model;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-
 import java.util.List;
 
-public class Category extends BaseObservable{
+public class Category{
     private String name;
     private String icon;
     private List<Coupon> coupons;
@@ -16,7 +13,6 @@ public class Category extends BaseObservable{
         this.coupons = coupons;
     }
 
-    @Bindable
     public String getName() {
         return name;
     }
@@ -25,7 +21,6 @@ public class Category extends BaseObservable{
         this.name = name;
     }
 
-    @Bindable
     public String getIcon() {
         return icon;
     }
@@ -34,7 +29,6 @@ public class Category extends BaseObservable{
         this.icon = icon;
     }
 
-    @Bindable
     public List<Coupon> getCoupons() {
         return coupons;
     }

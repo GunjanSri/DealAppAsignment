@@ -10,9 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nagarro.dealapplication.AvailOfferActivity;
-import com.nagarro.dealapplication.CouponsListActivity;
 import com.nagarro.dealapplication.R;
-import com.nagarro.dealapplication.model.Category;
 import com.nagarro.dealapplication.model.Coupon;
 import com.squareup.picasso.Picasso;
 
@@ -30,11 +28,11 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
 
         public MyViewHolder(View view) {
             super(view);
-            code = (TextView) view.findViewById(R.id.codeTextView);
-            description = (TextView) view.findViewById(R.id.descriptionTextView);
-            validity = (TextView) view.findViewById(R.id.validitytextView);
-            location = (TextView) view.findViewById(R.id.locationTextView);
-            icon = (ImageView)view.findViewById(R.id.iconImageView);
+            code = view.findViewById(R.id.codeTextView);
+            description = view.findViewById(R.id.descriptionTextView);
+            validity = view.findViewById(R.id.validitytextView);
+            location = view.findViewById(R.id.locationTextView);
+            icon = view.findViewById(R.id.iconImageView);
         }
     }
 
@@ -45,7 +43,7 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
     @Override
     public CouponListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.coupon_list_row, parent, false);
+                .inflate(R.layout.coupon_list_row_item, parent, false);
 
         return new CouponListAdapter.MyViewHolder(itemView);
     }
@@ -67,18 +65,6 @@ public class CouponListAdapter extends RecyclerView.Adapter<CouponListAdapter.My
                 context.startActivity(intent);
             }
         });
-
-
-        /*Picasso.get().load(category.getIcon()).into(holder.icon);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context , CouponsListActivity.class);
-                intent.putExtra(SELECTED_CATEGORY_POSITION , position);
-                context.startActivity(intent);
-            }
-        });*/
     }
 
     @Override
