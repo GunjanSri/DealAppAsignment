@@ -15,9 +15,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.nagarro.dealapplication.CategoryListActivity;
 import com.nagarro.dealapplication.R;
 import com.nagarro.dealapplication.RegisterActivity;
+import com.nagarro.dealapplication.fragment.DialogFragment;
+import com.nagarro.dealapplication.fragment.ProgressDialogFragment;
 import com.nagarro.dealapplication.util.Utility;
 
-public class LoginViewModel extends BaseObservable {
+public class LoginViewModel extends BaseObservable{
 
     private static final String TAG = LoginViewModel.class.getSimpleName();
     private String emailAddress;
@@ -47,6 +49,9 @@ public class LoginViewModel extends BaseObservable {
     }
 
     public void checkAuthenticatedUser(){
+        final DialogFragment dialogFragment = new DialogFragment();
+        dialogFragment.showProgressDailog(context.getFragmentManager());
+
          if(!Utility.validEmailAddress(emailAddress)){
              Log.d(TAG , "Invalid Email Address: " + emailAddress);
              Utility.showToastMessage(context,R.string.error_invalid_email_address);
@@ -60,6 +65,7 @@ public class LoginViewModel extends BaseObservable {
                              if (task.isSuccessful()) {
                                  Intent intent = new Intent(context, CategoryListActivity.class);
                                  context.startActivity(intent);
+                                 dialogFragment.dismiss(context.getFragmentManager());
                                  context.finish();
                              }
                          }
@@ -68,6 +74,9 @@ public class LoginViewModel extends BaseObservable {
                          public void onFailure(@NonNull Exception e) {
                              Log.d(TAG, "onFailure: " + "authentication failed");
                              Utility.showToastMessage(context, R.string.error_authentication_failed);
+                             dialogFragment.dismiss(context.getFragmentManager());
+                             dialogFragment.showFailureDialog(context.getFragmentManager() ,
+                                     context.getResources().getString(R.string.error_authentication_failed));
                          }
                      });
          }

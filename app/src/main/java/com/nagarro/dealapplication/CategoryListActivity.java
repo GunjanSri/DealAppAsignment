@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +28,8 @@ public class CategoryListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private Storage storage;
 
+    CategoryListAdapter categoryAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,7 @@ public class CategoryListActivity extends AppCompatActivity {
         readCategoryListFromDb();
         storeDealsInPreference();
 
-        CategoryListAdapter categoryAdapter = new CategoryListAdapter(this);
+        categoryAdapter = new CategoryListAdapter(this);
         categoryAdapter.setCategoryList(storeDealsInPreference());
         recyclerView = findViewById(R.id.offerCategoryListView);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
@@ -46,7 +49,6 @@ public class CategoryListActivity extends AppCompatActivity {
         FbTracker.getAnalyticsInstance(this);
 
         FbTracker.trackCurrentActivity(this,TAG);
-
     }
 
     private void readCategoryListFromDb(){
