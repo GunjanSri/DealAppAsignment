@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nagarro.dealapplication.model.Category;
-import com.nagarro.dealapplication.viewmodel.Deal;
 
 import java.util.ArrayList;
 import java.util.List;

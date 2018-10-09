@@ -29,6 +29,4 @@ public class FbTracker {
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
         }
     }
-
-
 }

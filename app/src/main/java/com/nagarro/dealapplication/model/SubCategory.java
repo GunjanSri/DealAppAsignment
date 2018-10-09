@@ -2,13 +2,12 @@ package com.nagarro.dealapplication.model;
 
 import java.util.List;
 
-public class Category{
-
+public class SubCategory {
     private String name;
     private String icon;
     private List<Coupon> coupons;
 
-    public Category(String name, String icon, List<Coupon> coupons) {
+    public SubCategory(String name, String icon, List<Coupon> coupons) {
         this.name = name;
         this.icon = icon;
         this.coupons = coupons;

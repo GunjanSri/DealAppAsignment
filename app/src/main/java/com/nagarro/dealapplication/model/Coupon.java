@@ -8,6 +8,9 @@ public class Coupon {
     private String validity;
     private String code;
 
+    public Coupon() {
+    }
+
     public Coupon(String name, String description, String icon, String location, String validity, String code) {
         this.name = name;
         this.description = description;

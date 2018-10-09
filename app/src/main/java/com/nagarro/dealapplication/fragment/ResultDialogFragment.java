@@ -1,11 +1,8 @@
 package com.nagarro.dealapplication.fragment;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,23 +55,6 @@ public class ResultDialogFragment extends DefaultDialogFragment implements View.
         setCancelable(false);
         showError();
         return view;
-    }
-
-    public void showLoader() {
-        Log.d(TAG , "Showing Loader");
-        lockStatusViewSpinner.setVisibility(View.VISIBLE);
-        lockStatusHeader.setVisibility(View.VISIBLE);
-        lockStatusMessage.setVisibility(View.GONE);
-        statusButtonLayout.setVisibility(View.GONE);
-        lockStatusAction.setVisibility(View.GONE);
-        final TypedArray themedAttributes = getActivity().obtainStyledAttributes(
-                new TypedValue().data,
-                new int[]{R.attr.progressDialogSpinnerColor}
-        );
-        lockStatusViewSpinner.clearAnimation();
-        lockStatusViewSpinner.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-        animationFactory.createSpinAnimation(lockStatusViewSpinner).doAnimation();
-        lockStatusHeader.setText(getActivity().getResources().getString(R.string.text_loader));
     }
 
     public void showError(){

@@ -78,17 +78,6 @@ public class ProgressDialogFragment extends DefaultDialogFragment implements Vie
         lockStatusHeader.setText(getActivity().getResources().getString(R.string.text_loader));
     }
 
-    public void showError(){
-        Log.d(TAG , "Authentication Failed");
-        lockStatusViewSpinner.setVisibility(View.GONE);
-        lockStatusHeader.setVisibility(View.GONE);
-        lockStatusMessage.setVisibility(View.VISIBLE);
-        statusButtonLayout.setVisibility(View.VISIBLE);
-        lockStatusAction.setVisibility(View.VISIBLE);
-
-        lockStatusMessage.setText(errorMessage);
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

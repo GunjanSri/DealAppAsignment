@@ -20,7 +20,6 @@ public class DialogFragment {
         bundle.putString(ERROR_MESSAGE , errorMessage);
         dialogFragment.setArguments(bundle);
         dialogFragment.show(fragmentManager , AUTHENTICATION_FAILURE_DIALOG_TAG);
-       // dialogFragment.showError();
     }
 
     public void dismiss(FragmentManager fragmentManager){

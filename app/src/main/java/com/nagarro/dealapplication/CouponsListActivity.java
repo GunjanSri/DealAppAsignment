@@ -105,8 +105,6 @@ public class CouponsListActivity extends AppCompatActivity {
         categories.add(new Category("movies" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
                 coupons2));
 
-
-
         storage.saveOffers(categories);
         return categories;
     }

@@ -1,21 +1,9 @@
 package com.nagarro.dealapplication;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.nagarro.dealapplication.adapter.CategoryListAdapter;
 import com.nagarro.dealapplication.analytics.FbTracker;
 import com.nagarro.dealapplication.model.Category;
@@ -38,10 +26,6 @@ public class CategoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category_list);
         storage = Storage.getInstance(this);
 
-        //saveDataInDatabase();
-        readCategoryListFromDb();
-        storeDealsInPreference();
-
         categoryAdapter = new CategoryListAdapter(this);
         categoryAdapter.setCategoryList(storeDealsInPreference());
         recyclerView = findViewById(R.id.offerCategoryListView);
@@ -52,40 +36,6 @@ public class CategoryListActivity extends AppCompatActivity {
         FbTracker.getAnalyticsInstance(this);
 
         FbTracker.trackCurrentActivity(this,TAG);
-    }
-
-    private void readCategoryListFromDb(){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseReference.child("categories");
-        Log.d(TAG , "Testing get api");
-
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG , "Testing get api" + dataSnapshot.getChildren().iterator().hasNext() );
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    Log.d(TAG , "Testing get api" + singleSnapshot.getValue() );
-                    Category category = singleSnapshot.getValue(Category.class);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d(TAG , "Testing get api");
-            }
-        });
-    }
-
-    private void saveDataInDatabase(){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("categories").child("food").child("coupons").setValue(new Coupon("Swiggy" , "dsgdkshldshlhls" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/swiggy.png?alt=media&token=4cd91ddf-e016-4f40-9280-a5fe0814e4c4",
-                "Gurgaon" , "31-Oct-2018" , "CODE-001") , new DatabaseReference.CompletionListener(){
-
-            @Override
-            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                //Log.d(TAG , "Testing" + databaseError.getMessage() + databaseReference.getKey());
-            }
-        });
     }
 
     private List<Category> storeDealsInPreference(){
