@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+
 import com.nagarro.dealapplication.adapter.CategoryListAdapter;
 import com.nagarro.dealapplication.analytics.FbTracker;
 import com.nagarro.dealapplication.model.Category;
@@ -36,6 +38,13 @@ public class CategoryListActivity extends AppCompatActivity {
         FbTracker.getAnalyticsInstance(this);
 
         FbTracker.trackCurrentActivity(this,TAG);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        menu.findItem(R.id.menu_about).setIcon(R.drawable.asterix_about_white);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private List<Category> storeDealsInPreference(){

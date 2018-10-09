@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.Menu;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.nagarro.dealapplication.adapter.CouponListAdapter;
 import com.nagarro.dealapplication.model.Category;
@@ -22,7 +24,7 @@ import butterknife.OnClick;
 public class CouponsListActivity extends AppCompatActivity {
 
     private static final String SELECTED_CATEGORY = "selected_category";
-    private int couponCategoryPosition;
+    private int couponCategoryPosition = -1;
     private Storage storage;
     CouponListAdapter couponsAdapter;
 
@@ -32,6 +34,10 @@ public class CouponsListActivity extends AppCompatActivity {
     LinearLayout foodLayout;
     @BindView(R.id.movieLayout)
     LinearLayout movieLayout;
+    @BindView(R.id.movieTextView)
+    TextView movieTextView;
+    @BindView(R.id.foodTextView)
+    TextView foodTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +49,11 @@ public class CouponsListActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             couponCategoryPosition = bundle.getInt(SELECTED_CATEGORY);
+        }
+        if(couponCategoryPosition == 0){
+            foodTextView.setTextColor(getResources().getColor(R.color.colorAccent));
+        }else{
+            movieTextView.setTextColor(getResources().getColor(R.color.colorAccent));
         }
 
         RecyclerView recyclerView = findViewById(R.id.offerListView);
@@ -72,14 +83,25 @@ public class CouponsListActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        menu.findItem(R.id.menu_about).setIcon(R.drawable.asterix_about_white);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @OnClick(R.id.foodLayout)
     public void foodChoosen(){
+        foodTextView.setTextColor(getResources().getColor(R.color.colorAccent));
+        movieTextView.setTextColor(getResources().getColor(R.color.colorDarkGrey));
         couponsAdapter.setCouponList(storeDealsInPreference().get(0).getCoupons());
         couponsAdapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.movieLayout)
     public void movieChoosen(){
+        movieTextView.setTextColor(getResources().getColor(R.color.colorAccent));
+        foodTextView.setTextColor(getResources().getColor(R.color.colorDarkGrey));
         couponsAdapter.setCouponList(storeDealsInPreference().get(2).getCoupons());
         couponsAdapter.notifyDataSetChanged();
     }

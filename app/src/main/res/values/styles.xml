@@ -26,14 +26,14 @@
 
     <style name="CouponText">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorDarkGrey</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingTop">5dp</item>
     </style>
 
     <style name="CouponCodeText">
         <item name="android:textSize">25sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorDarkGrey</item>
         <item name="android:paddingRight">5dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:textStyle">bold</item>
