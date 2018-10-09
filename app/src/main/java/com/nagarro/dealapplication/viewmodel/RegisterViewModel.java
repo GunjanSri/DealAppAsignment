@@ -14,6 +14,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.nagarro.dealapplication.R;
+import com.nagarro.dealapplication.fragment.DialogFragment;
+import com.nagarro.dealapplication.fragment.ProgressDialogFragment;
 import com.nagarro.dealapplication.util.Utility;
 
 public class RegisterViewModel extends BaseObservable {
@@ -70,7 +72,8 @@ public class RegisterViewModel extends BaseObservable {
     }
 
     private void registerNewEmail(){
-        //showDialog
+        final DialogFragment dialogFragment = new DialogFragment();
+        dialogFragment.showProgressDailog(context.getFragmentManager());
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(emailAddress, password)
                 .addOnCompleteListener(context, new OnCompleteListener<AuthResult>() {
@@ -82,10 +85,13 @@ public class RegisterViewModel extends BaseObservable {
                                     getCurrentUser().getUid());
 
                             FirebaseAuth.getInstance().signOut();
+                            dialogFragment.dismiss(context.getFragmentManager());
                             context.finish();
                         } else {
                             Log.w(TAG, "onComplete: failure"+ task.isSuccessful());
                             Utility.showToastMessage(context , R.string.error_authentication_failed);
+                            dialogFragment.dismiss(context.getFragmentManager());
+                            dialogFragment.showFailureDialog(context.getFragmentManager() , context.getResources().getString(R.string.error_registration_failed));
                         }
                     }
                 });

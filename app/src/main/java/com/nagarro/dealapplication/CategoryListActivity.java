@@ -1,11 +1,13 @@
 package com.nagarro.dealapplication;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +38,7 @@ public class CategoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category_list);
         storage = Storage.getInstance(this);
 
+        //saveDataInDatabase();
         readCategoryListFromDb();
         storeDealsInPreference();
 
@@ -53,20 +56,34 @@ public class CategoryListActivity extends AppCompatActivity {
 
     private void readCategoryListFromDb(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseReference.child("categories").orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser()
-                                            .getUid());
+        Query query = databaseReference.child("categories");
+        Log.d(TAG , "Testing get api");
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG , "Testing get api" + dataSnapshot.getChildren().iterator().hasNext() );
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-
+                    Log.d(TAG , "Testing get api" + singleSnapshot.getValue() );
+                    Category category = singleSnapshot.getValue(Category.class);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(TAG , "Testing get api");
+            }
+        });
+    }
 
+    private void saveDataInDatabase(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("categories").child("food").child("coupons").setValue(new Coupon("Swiggy" , "dsgdkshldshlhls" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/swiggy.png?alt=media&token=4cd91ddf-e016-4f40-9280-a5fe0814e4c4",
+                "Gurgaon" , "31-Oct-2018" , "CODE-001") , new DatabaseReference.CompletionListener(){
+
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                //Log.d(TAG , "Testing" + databaseError.getMessage() + databaseReference.getKey());
             }
         });
     }
