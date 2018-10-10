@@ -8,6 +8,7 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="empty">""</string>
+    <string name="no_coupon_available_text">No Coupons Available</string>
 
     <!--Register Screen -->
     <string name="hint_email_address">Enter email address</string>

@@ -7,6 +7,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.nagarro.dealapplication.adapter.CategoryListAdapter;
 import com.nagarro.dealapplication.analytics.FbTracker;
@@ -22,6 +24,7 @@ public class CategoryListActivity extends AppCompatActivity implements ReadDataC
 
     private static final String TAG = CategoryListActivity.class.getSimpleName();
     RecyclerView recyclerView;
+    TextView noCouponText;
     private CategoryStorage storage;
 
     CategoryListAdapter categoryAdapter;
@@ -36,6 +39,7 @@ public class CategoryListActivity extends AppCompatActivity implements ReadDataC
         categoryAdapter = new CategoryListAdapter(this);
 
         recyclerView = findViewById(R.id.offerCategoryListView);
+        noCouponText = findViewById(R.id.noCouponText);
         readDataFromDb();
 
         FbTracker.getAnalyticsInstance(this);
@@ -65,13 +69,16 @@ public class CategoryListActivity extends AppCompatActivity implements ReadDataC
     @Override
     public void isSuccessful(Map<String, SingleCategory> categoriesMap) {
         if(categoriesMap != null) {
+            recyclerView.setVisibility(View.VISIBLE);
+            noCouponText.setVisibility(View.GONE);
             new CategoryStorage(this).saveCategories(categoriesMap);
             dialogFragment.dismissProgress(getFragmentManager());
             recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
             categoryAdapter.setCategoryList(storage.getCategoryModel());
             recyclerView.setAdapter(categoryAdapter);
         }else{
-            //No coupons available
+            recyclerView.setVisibility(View.GONE);
+            noCouponText.setVisibility(View.VISIBLE);
         }
     }
 }

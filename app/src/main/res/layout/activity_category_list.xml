@@ -12,6 +12,14 @@
         style="@style/TextTile"
         android:text="@string/category_title" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_coupon_available_text"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:id="@+id/noCouponText"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/offerCategoryListView"
         android:layout_width="match_parent"
