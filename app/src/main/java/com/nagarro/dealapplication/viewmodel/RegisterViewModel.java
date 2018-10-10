@@ -16,15 +16,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.nagarro.dealapplication.R;
 import com.nagarro.dealapplication.fragment.DialogFragment;
 import com.nagarro.dealapplication.fragment.ProgressDialogFragment;
+import com.nagarro.dealapplication.fragment.ResultDialogFragment;
 import com.nagarro.dealapplication.util.Utility;
 
-public class RegisterViewModel extends BaseObservable {
+public class RegisterViewModel extends BaseObservable implements ResultDialogFragment.OnActionComplete {
 
     private static final String TAG = RegisterViewModel.class.getSimpleName();
     private String emailAddress;
     private String password;
     private String confirmPassword;
     private Activity context;
+    private DialogFragment dialogFragment;
 
     public RegisterViewModel(Activity context){
         this.context = context;
@@ -58,10 +60,16 @@ public class RegisterViewModel extends BaseObservable {
     }
 
     public void registerUser(){
-        if(!Utility.validEmailAddress(emailAddress)){
+        if(emailAddress == null){
             Log.d(TAG , "Invalid email Address: " + emailAddress );
             Utility.showToastMessage(context,R.string.error_invalid_email_address);
-        }else if(! password.equals(confirmPassword)){
+        }else if(!Utility.validEmailAddress(emailAddress)){
+            Log.d(TAG , "Invalid email Address: " + emailAddress );
+            Utility.showToastMessage(context,R.string.error_invalid_email_address);
+        }else if(password == null){
+            Log.d(TAG , "Invalid Password: " + password );
+            Utility.showToastMessage(context,R.string.error_invalid_password);
+        } else if(! password.equals(confirmPassword)){
             Log.d(TAG , "Password not matching: " + "Password: " + password + "Confirm Passowrd: " +
                                                             confirmPassword);
             Utility.showToastMessage(context,R.string.error_password_not_matching);
@@ -72,7 +80,7 @@ public class RegisterViewModel extends BaseObservable {
     }
 
     private void registerNewEmail(){
-        final DialogFragment dialogFragment = new DialogFragment();
+        dialogFragment = new DialogFragment();
         dialogFragment.showProgressDailog(context.getFragmentManager());
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(emailAddress, password)
@@ -85,15 +93,25 @@ public class RegisterViewModel extends BaseObservable {
                                     getCurrentUser().getUid());
 
                             FirebaseAuth.getInstance().signOut();
-                            dialogFragment.dismiss(context.getFragmentManager());
+                            dialogFragment.dismissProgress(context.getFragmentManager());
                             context.finish();
                         } else {
                             Log.w(TAG, "onComplete: failure"+ task.isSuccessful());
                             Utility.showToastMessage(context , R.string.error_authentication_failed);
-                            dialogFragment.dismiss(context.getFragmentManager());
-                            dialogFragment.showFailureDialog(context.getFragmentManager() , context.getResources().getString(R.string.error_registration_failed));
+                            dialogFragment.dismissProgress(context.getFragmentManager());
+                            dialogFragment.showFailureDialog(context.getFragmentManager() , context.getResources().getString(R.string.error_registration_failed),false);
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
+
+    @Override
+    public void onOk() {
+        dialogFragment.dismissResultFragment(context.getFragmentManager());
     }
 }

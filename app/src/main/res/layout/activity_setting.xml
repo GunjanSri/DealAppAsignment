@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/version_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/gray_dark"
+                android:textSize="18sp"
+                android:text="@string/version_information" />
+
+            <TextView
+                android:id="@+id/registered_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="gunjan.186@gmail.com"
+                android:textColor="@color/gray_dark"
+                android:textSize="18sp"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDarkGrey"
+                android:layout_marginTop="10dp"/>
+            <!-- NOTIFICATIONS -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/notificationsSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="18sp"
+                    android:layout_alignParentEnd="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/notificationsText"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="18sp"
+                    android:text="@string/push_notifications" />
+
+                <TextView
+                    android:id="@+id/notificationSubText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/notificationsText"
+                    android:layout_below="@id/notificationsText"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="18sp"
+                    android:layout_toStartOf="@id/notificationsSwitch"
+                    android:text="@string/push_notifications_subtext" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDarkGrey"
+                android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:id="@+id/languageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/selectLanguageText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/select_language"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/selectedLanguageText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="10dp"
+                    android:text="English"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDarkGrey"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/unregister"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/gray_dark"
+                android:textSize="18sp"
+                android:id="@+id/unregister"/>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

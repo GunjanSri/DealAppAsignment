@@ -51,12 +51,20 @@
         android:layout_marginTop="30dp">
 
         <Button
-            android:id="@+id/lock_status_action"
+            android:id="@+id/ok_action"
             style="@style/Button"
             android:layout_width="match_parent"
             android:layout_weight="0.5"
             android:layout_gravity="center_horizontal"
-            android:text="Ok" />
+            android:text="@string/ok" />
+        <Button
+            android:id="@+id/cancel_action"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/cancel" />
 
     </LinearLayout>
 

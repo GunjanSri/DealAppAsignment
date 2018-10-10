@@ -10,9 +10,11 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.nagarro.dealapplication.databinding.ActivityLoginBinding;
+import com.nagarro.dealapplication.fragment.DialogFragment;
+import com.nagarro.dealapplication.fragment.ResultDialogFragment;
 import com.nagarro.dealapplication.viewmodel.LoginViewModel;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements ResultDialogFragment.OnActionComplete{
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -54,5 +56,16 @@ public class LoginActivity extends AppCompatActivity {
         if(authStateListener != null){
             FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
         }
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
+
+    @Override
+    public void onOk() {
+        DialogFragment dialogFragment = new DialogFragment();
+        dialogFragment.dismissResultFragment(getFragmentManager());
     }
 }

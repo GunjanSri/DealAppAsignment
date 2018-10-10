@@ -11,14 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nagarro.dealapplication.adapter.CouponListAdapter;
-import com.nagarro.dealapplication.model.Category;
 import com.nagarro.dealapplication.model.CategoryName;
 import com.nagarro.dealapplication.model.Coupon;
-import com.nagarro.dealapplication.model.SingleCategory;
+import com.nagarro.dealapplication.storage.CategoryStorage;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +25,7 @@ public class CouponsListActivity extends AppCompatActivity {
 
     private static final String SELECTED_CATEGORY_NAME = "selected_category_name";
     private String selectedCategory ;
-    private Storage storage;
+    private CategoryStorage storage;
     CouponListAdapter couponsAdapter;
     List<Coupon> couponList;
 
@@ -49,7 +46,7 @@ public class CouponsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coupon_list);
         ButterKnife.bind(this);
 
-        storage = Storage.getInstance(this);
+        storage = new CategoryStorage(this);
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             selectedCategory = bundle.getString(SELECTED_CATEGORY_NAME);

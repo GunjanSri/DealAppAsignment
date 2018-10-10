@@ -1,27 +1,22 @@
 package com.nagarro.dealapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.nagarro.dealapplication.adapter.CategoryListAdapter;
 import com.nagarro.dealapplication.analytics.FbTracker;
-import com.nagarro.dealapplication.database.CategoriesDatabase;
-import com.nagarro.dealapplication.model.Category;
-import com.nagarro.dealapplication.model.Coupon;
-import com.nagarro.dealapplication.model.SingleCategory;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.nagarro.dealapplication.storage.CategoryStorage;
 
 public class CategoryListActivity extends AppCompatActivity {
 
     private static final String TAG = CategoryListActivity.class.getSimpleName();
     RecyclerView recyclerView;
-    private Storage storage;
+    private CategoryStorage storage;
 
     CategoryListAdapter categoryAdapter;
 
@@ -29,7 +24,7 @@ public class CategoryListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
-        storage = Storage.getInstance(this);
+        storage = new CategoryStorage(this);
 
         categoryAdapter = new CategoryListAdapter(this);
 
@@ -48,5 +43,12 @@ public class CategoryListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.actionbar_menu, menu);
         menu.findItem(R.id.menu_about).setIcon(R.drawable.asterix_about_white);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(this , SettingsActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }

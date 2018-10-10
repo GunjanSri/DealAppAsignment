@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nagarro.dealapplication.storage.CategoryStorage;
 import com.nagarro.dealapplication.CouponsListActivity;
 import com.nagarro.dealapplication.R;
-import com.nagarro.dealapplication.Storage;
 import com.nagarro.dealapplication.model.Category;
 import com.squareup.picasso.Picasso;
 
@@ -22,7 +22,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private static final String SELECTED_CATEGORY_NAME = "selected_category_name";
     private List<Category> categoryList;
     private Context context;
-    private Storage storage;
+    private CategoryStorage storage;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -37,7 +37,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     public CategoryListAdapter(Context context) {
         this.context = context;
-        storage = Storage.getInstance(context);
+        storage = new CategoryStorage(context);
         categoryList = storage.getCategoryModel();
     }
 

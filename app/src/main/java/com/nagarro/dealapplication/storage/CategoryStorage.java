@@ -1,4 +1,4 @@
-package com.nagarro.dealapplication;
+package com.nagarro.dealapplication.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,37 +14,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Storage {
+public class CategoryStorage extends Storage{
     private final String STORAGE_ID = "offer_storage";
     private final String CATEGORIES_KEY = "categories_key";
+    private final String APPLICATION_STATE_KEY = "application_state_key";
     private final Gson gson = new Gson();
-    private static Storage instance;
+    private static CategoryStorage instance;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Context context;
 
-    private Storage(Context context){
-        this.context = context;
-        sharedPreferences = context.getSharedPreferences(STORAGE_ID , Context.MODE_PRIVATE);
+    public CategoryStorage(Context context){
+        super(context);
     }
 
-    public static Storage getInstance(final Context context){
-        if(instance == null){
-            instance = new Storage(context.getApplicationContext());
-        }
-        return instance;
+    @Override
+    public String getStorageId() {
+        return "category_list";
     }
 
     public void saveCategories(Map<String , SingleCategory> categories){
         String json = gson.toJson(categories);
-        editor = sharedPreferences.edit();
-        editor.putString(CATEGORIES_KEY , json);
-        editor.commit();
+        putString(CATEGORIES_KEY , json);
     }
 
     public Map<String , SingleCategory> getCategories(){
-        String json = sharedPreferences.getString(CATEGORIES_KEY , null);
+        String json = getString(CATEGORIES_KEY , null);
         Map<String , SingleCategory> categories = gson.fromJson(json , new TypeToken<Map<String , SingleCategory>>(){}.getType());
         return categories;
     }

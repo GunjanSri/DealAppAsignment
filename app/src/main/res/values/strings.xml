@@ -5,6 +5,8 @@
     <string name="app_version">Version %1$s</string>
     <string name="success_avail_offer">Hurray! \n You have successfully availed this offer.</string>
     <string name="text_loader">Loading...</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 
     <!--Register Screen -->
     <string name="hint_email_address">Enter email address</string>
@@ -15,11 +17,21 @@
     <!-- Sign In Screen -->
     <string name="btn_signin">SIGN IN</string>
 
+    <!-- Settings Screen -->
+    <string name="version_information">Version %1$s</string>
+    <string name="user">User: %1$s</string>
+    <string name="push_notifications">Notifications</string>
+    <string name="push_notifications_subtext">With notifications enabled you will be notified when your reservation is updated</string>
+    <string name="select_language">Select Language</string>
+    <string name="unregister">Unregister</string>
+    <string name="unregister_confirmation">Are you sure you want to unregister?</string>
+
     <!-- Error Messages -->
     <string name="error_invalid_email_address">Enter valid email address</string>
     <string name="error_password_not_matching">Passwords are not matching</string>
     <string name="error_authentication_failed">Authentication failed. Please try again later</string>
     <string name="error_registration_failed">Registration failed. Please try again later</string>
+    <string name="error_invalid_password">Please enter valid Password</string>
 
 
 

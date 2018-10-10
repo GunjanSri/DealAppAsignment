@@ -15,7 +15,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.nagarro.dealapplication.CategoryListActivity;
 import com.nagarro.dealapplication.R;
 import com.nagarro.dealapplication.RegisterActivity;
-import com.nagarro.dealapplication.Storage;
+import com.nagarro.dealapplication.fragment.ResultDialogFragment;
+import com.nagarro.dealapplication.storage.AppStateStorage;
+import com.nagarro.dealapplication.storage.CategoryStorage;
 import com.nagarro.dealapplication.database.CategoriesDatabase;
 import com.nagarro.dealapplication.database.ReadDataCompleteListener;
 import com.nagarro.dealapplication.fragment.DialogFragment;
@@ -24,7 +26,7 @@ import com.nagarro.dealapplication.util.Utility;
 
 import java.util.Map;
 
-public class LoginViewModel extends BaseObservable implements ReadDataCompleteListener{
+public class LoginViewModel extends BaseObservable implements ReadDataCompleteListener, ResultDialogFragment.OnActionComplete{
 
     private static final String TAG = LoginViewModel.class.getSimpleName();
     private String emailAddress;
@@ -55,38 +57,40 @@ public class LoginViewModel extends BaseObservable implements ReadDataCompleteLi
     }
 
     public void checkAuthenticatedUser(){
-        dialogFragment = new DialogFragment();
-        dialogFragment.showProgressDailog(context.getFragmentManager());
+        if (emailAddress == null) {
+            Utility.showToastMessage(context, R.string.error_invalid_email_address);
+        } else if (!Utility.validEmailAddress(emailAddress)) {
+            Log.d(TAG, "Invalid Email Address: " + emailAddress);
+            Utility.showToastMessage(context, R.string.error_invalid_email_address);
+        } else if (password == null) {
+            Log.d(TAG, "Invalid Password: " + password);
+            Utility.showToastMessage(context, R.string.error_invalid_password);
+        } else {
+            dialogFragment = new DialogFragment();
+            dialogFragment.showProgressDailog(context.getFragmentManager());
 
-         if(!Utility.validEmailAddress(emailAddress)){
-             Log.d(TAG , "Invalid Email Address: " + emailAddress);
-             Utility.showToastMessage(context,R.string.error_invalid_email_address);
-         } else {
-             Log.d(TAG, "Sign In Started ...");
-             FirebaseAuth.getInstance().signInWithEmailAndPassword(emailAddress, password)
-                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                         @Override
-                         public void onComplete(@NonNull Task<AuthResult> task) {
-                             Log.d(TAG, "onComplete: " + "authentication completed");
-                             if (task.isSuccessful()) {
-                                 CategoriesDatabase.getDataFromDb(LoginViewModel.this);
-                             }
-                         }
-                     }).addOnFailureListener(new OnFailureListener() {
-                         @Override
-                         public void onFailure(@NonNull Exception e) {
-                             Log.d(TAG, "onFailure: " + "authentication failed");
-                             Utility.showToastMessage(context, R.string.error_authentication_failed);
-                             dialogFragment.dismiss(context.getFragmentManager());
-                             dialogFragment.showFailureDialog(context.getFragmentManager() ,
-                                     context.getResources().getString(R.string.error_authentication_failed));
-                         }
-                     });
-         }
-    }
-
-    private void readDataFromDb(){
-        Map<String , SingleCategory> categoriesMap = CategoriesDatabase.getDataFromDb(this);
+            Log.d(TAG, "Sign In Started ...");
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(emailAddress, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d(TAG, "onComplete: " + "authentication completed");
+                            if (task.isSuccessful()) {
+                                new AppStateStorage(context).setState(AppStateStorage.State.REGISTERED);
+                                new AppStateStorage(context).setEmaild(emailAddress);
+                                CategoriesDatabase.getDataFromDb(LoginViewModel.this);
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: " + "authentication failed");
+                    dialogFragment.dismissProgress(context.getFragmentManager());
+                    dialogFragment.showFailureDialog(context.getFragmentManager(),
+                            context.getResources().getString(R.string.error_authentication_failed), false);
+                }
+            });
+        }
     }
 
     public void openRegisterScreen(){
@@ -97,10 +101,24 @@ public class LoginViewModel extends BaseObservable implements ReadDataCompleteLi
 
     @Override
     public void isSuccessful(Map<String , SingleCategory> categoriesMap) {
-        Storage.getInstance(context).saveCategories(categoriesMap);
+        new CategoryStorage(context).saveCategories(categoriesMap);
+        launchCategoryListActivity();
+        dialogFragment.dismissProgress(context.getFragmentManager());
+        context.finish();
+    }
+
+    private void launchCategoryListActivity(){
         Intent intent = new Intent(context, CategoryListActivity.class);
         context.startActivity(intent);
-        dialogFragment.dismiss(context.getFragmentManager());
-        context.finish();
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
+
+    @Override
+    public void onOk() {
+        dialogFragment.dismissResultFragment(context.getFragmentManager());
     }
 }

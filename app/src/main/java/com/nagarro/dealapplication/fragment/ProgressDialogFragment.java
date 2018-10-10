@@ -35,8 +35,11 @@ public class ProgressDialogFragment extends DefaultDialogFragment implements Vie
     @BindView(R.id.status_button_layout)
     LinearLayout statusButtonLayout;
 
-    @BindView(R.id.lock_status_action)
-    Button lockStatusAction;
+    @BindView(R.id.ok_action)
+    Button okAction;
+
+    @BindView(R.id.cancel_action)
+    Button cancelAction;
 
     private final AnimationFactory animationFactory = new AnimationFactory();
     private String errorMessage;
@@ -55,7 +58,7 @@ public class ProgressDialogFragment extends DefaultDialogFragment implements Vie
         if(getArguments() != null){
             errorMessage = getArguments().getString(ERROR_MESSAGE);
         }
-        lockStatusAction.setOnClickListener(this);
+
         setCancelable(false);
         showLoader();
         return view;
@@ -67,7 +70,8 @@ public class ProgressDialogFragment extends DefaultDialogFragment implements Vie
         lockStatusHeader.setVisibility(View.VISIBLE);
         lockStatusMessage.setVisibility(View.GONE);
         statusButtonLayout.setVisibility(View.GONE);
-        lockStatusAction.setVisibility(View.GONE);
+        okAction.setVisibility(View.GONE);
+        cancelAction.setVisibility(View.GONE);
         final TypedArray themedAttributes = getActivity().obtainStyledAttributes(
                 new TypedValue().data,
                 new int[]{R.attr.progressDialogSpinnerColor}

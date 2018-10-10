@@ -1,6 +1,6 @@
 package com.nagarro.dealapplication.fragment;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +16,9 @@ import com.nagarro.dealapplication.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class ResultDialogFragment extends DefaultDialogFragment implements View.OnClickListener {
+public class ResultDialogFragment extends DefaultDialogFragment {
 
     @BindView(R.id.lock_status_header)
     TextView lockStatusHeader;
@@ -31,13 +32,18 @@ public class ResultDialogFragment extends DefaultDialogFragment implements View.
     @BindView(R.id.status_button_layout)
     LinearLayout statusButtonLayout;
 
-    @BindView(R.id.lock_status_action)
-    Button lockStatusAction;
+    @BindView(R.id.ok_action)
+    Button okAction;
+    @BindView(R.id.cancel_action)
+    Button cancelAction;
 
     private final AnimationFactory animationFactory = new AnimationFactory();
-    private String errorMessage;
     private static final String TAG = ProgressDialogFragment.class.getSimpleName();
     private static final String ERROR_MESSAGE = "error_message";
+    private static final String BUTTON_VISIBILTY = "button_visibilty";
+    OnActionComplete onActionComplete;
+    private String errorMessage;
+    private boolean visibility;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -50,8 +56,9 @@ public class ResultDialogFragment extends DefaultDialogFragment implements View.
         ButterKnife.bind(this, view);
         if(getArguments() != null){
             errorMessage = getArguments().getString(ERROR_MESSAGE);
+            visibility = getArguments().getBoolean(BUTTON_VISIBILTY);
         }
-        lockStatusAction.setOnClickListener(this);
+
         setCancelable(false);
         showError();
         return view;
@@ -63,18 +70,36 @@ public class ResultDialogFragment extends DefaultDialogFragment implements View.
         lockStatusHeader.setVisibility(View.GONE);
         lockStatusMessage.setVisibility(View.VISIBLE);
         statusButtonLayout.setVisibility(View.VISIBLE);
-        lockStatusAction.setVisibility(View.VISIBLE);
+        okAction.setVisibility(View.VISIBLE);
+        if(visibility)
+            cancelAction.setVisibility(View.VISIBLE);
+        else
+            cancelAction.setVisibility(View.GONE);
 
         lockStatusMessage.setText(errorMessage);
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+
+        super.onAttach(activity);
+        if (activity instanceof OnActionComplete) {
+            onActionComplete = (OnActionComplete) activity;
+        }
     }
 
-    @Override
-    public void onClick(View v) {
-        dismiss();
+    @OnClick(R.id.ok_action)
+    public void okAction(){
+        onActionComplete.onOk();
+    }
+
+    @OnClick(R.id.cancel_action)
+    public void cancelAction(){
+        onActionComplete.onCancel();
+    }
+
+    public interface OnActionComplete{
+        void onCancel();
+        void onOk();
     }
 }

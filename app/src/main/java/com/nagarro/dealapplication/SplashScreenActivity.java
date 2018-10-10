@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.nagarro.dealapplication.storage.AppStateStorage;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,9 +31,14 @@ public class SplashScreenActivity extends AppCompatActivity{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreenActivity.this , LoginActivity.class);
-                startActivity(intent);
-                SplashScreenActivity.this.finish();
+                if(new AppStateStorage(SplashScreenActivity.this).getState().equals(AppStateStorage.State.UNREGISTERED)) {
+                    Intent intent = new Intent(SplashScreenActivity.this , LoginActivity.class);
+                    startActivity(intent);
+                    SplashScreenActivity.this.finish();
+                }else{
+                    Intent intent = new Intent(SplashScreenActivity.this, CategoryListActivity.class);
+                    SplashScreenActivity.this.startActivity(intent);
+                }
             }
         } , 5000);
     }
