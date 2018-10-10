@@ -26,7 +26,7 @@ import com.nagarro.dealapplication.util.Utility;
 
 import java.util.Map;
 
-public class LoginViewModel extends BaseObservable implements ReadDataCompleteListener, ResultDialogFragment.OnActionComplete{
+public class LoginViewModel extends BaseObservable implements ResultDialogFragment.OnActionComplete{
 
     private static final String TAG = LoginViewModel.class.getSimpleName();
     private String emailAddress;
@@ -78,7 +78,10 @@ public class LoginViewModel extends BaseObservable implements ReadDataCompleteLi
                             if (task.isSuccessful()) {
                                 new AppStateStorage(context).setState(AppStateStorage.State.REGISTERED);
                                 new AppStateStorage(context).setEmaild(emailAddress);
-                                CategoriesDatabase.getDataFromDb(LoginViewModel.this);
+
+                                dialogFragment.dismissProgress(context.getFragmentManager());
+                                launchCategoryListActivity();
+                                context.finish();
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -97,14 +100,6 @@ public class LoginViewModel extends BaseObservable implements ReadDataCompleteLi
         Log.d(TAG , "Register button clicked ...");
         Intent intent = new Intent(context, RegisterActivity.class);
         context.startActivity(intent);
-    }
-
-    @Override
-    public void isSuccessful(Map<String , SingleCategory> categoriesMap) {
-        new CategoryStorage(context).saveCategories(categoriesMap);
-        launchCategoryListActivity();
-        dialogFragment.dismissProgress(context.getFragmentManager());
-        context.finish();
     }
 
     private void launchCategoryListActivity(){

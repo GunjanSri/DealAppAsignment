@@ -22,7 +22,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private static final String SELECTED_CATEGORY_NAME = "selected_category_name";
     private List<Category> categoryList;
     private Context context;
-    private CategoryStorage storage;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -37,8 +36,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     public CategoryListAdapter(Context context) {
         this.context = context;
-        storage = new CategoryStorage(context);
-        categoryList = storage.getCategoryModel();
     }
 
     @Override

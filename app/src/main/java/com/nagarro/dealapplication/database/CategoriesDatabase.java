@@ -64,6 +64,7 @@ public class CategoriesDatabase {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d(TAG , "onCancelled :" + databaseError.getMessage());
+                listener.isSuccessful(null);
             }
         });
 
