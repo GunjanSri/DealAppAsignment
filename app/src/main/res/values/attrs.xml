@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="progressDialogSpinnerColor" format="color" />
+    <attr name="colorSecondary" format="reference" />
+
+    <declare-styleable name="ToolBar">
+        <attr name="toolBarType" format="enum">
+            <enum name="Standard" value="0" />
+            <enum name="NoBackground" value="1" />
+            <enum name="TranslucentGradient" value="2" />
+        </attr>
+    </declare-styleable>
 
 </resources>

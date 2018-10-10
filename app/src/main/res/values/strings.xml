@@ -7,6 +7,7 @@
     <string name="text_loader">Loading...</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="empty">""</string>
 
     <!--Register Screen -->
     <string name="hint_email_address">Enter email address</string>
@@ -32,6 +33,7 @@
     <string name="error_authentication_failed">Authentication failed. Please try again later</string>
     <string name="error_registration_failed">Registration failed. Please try again later</string>
     <string name="error_invalid_password">Please enter valid Password</string>
+
 
 
 

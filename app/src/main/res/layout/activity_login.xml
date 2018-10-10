@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -17,40 +17,29 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/emailText"
+            style="@style/RegisterEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_email_address"
+            android:inputType="textEmailAddress"
+            android:text="@={loginViewModel.emailAddress}" />
 
-            <EditText
-                android:id="@+id/emailText"
-                style="@style/RegisterEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_email_address"
-                android:inputType="textEmailAddress"
-                android:text="@={loginViewModel.emailAddress}" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/passwordText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/passwordText"
-                style="@style/RegisterEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_password"
-                android:inputType="textPassword"
-                android:text="@={loginViewModel.password}" />
-
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword"
+            android:text="@={loginViewModel.password}"
+            style="@style/RegisterEditText"/>
 
         <Button
             android:id="@+id/signinButton"
             style="@style/Button"
-            android:text="@string/btn_signin"
-            android:onClick="@{() -> loginViewModel.checkAuthenticatedUser()}"/>
+            android:onClick="@{() -> loginViewModel.checkAuthenticatedUser()}"
+            android:text="@string/btn_signin" />
 
         <Button
             android:id="@+id/registerButton"
