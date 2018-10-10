@@ -4,21 +4,20 @@ import java.util.List;
 
 public class SingleCategory {
 
-    private String name;
+    private String icon;
     private List<Coupon> coupons;
-    public SingleCategory(){}
 
     public SingleCategory(String icon, List<Coupon> couponList) {
-        this.name = icon;
+        this.icon = icon;
         this.coupons = couponList;
     }
 
     public String getIcon() {
-        return name;
+        return icon;
     }
 
     public void setIcon(String icon) {
-        this.name = icon;
+        this.icon = icon;
     }
 
     public List<Coupon> getCouponList() {

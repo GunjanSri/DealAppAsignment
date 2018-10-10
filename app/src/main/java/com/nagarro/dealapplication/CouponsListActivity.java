@@ -12,10 +12,13 @@ import android.widget.TextView;
 
 import com.nagarro.dealapplication.adapter.CouponListAdapter;
 import com.nagarro.dealapplication.model.Category;
+import com.nagarro.dealapplication.model.CategoryName;
 import com.nagarro.dealapplication.model.Coupon;
+import com.nagarro.dealapplication.model.SingleCategory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,10 +26,11 @@ import butterknife.OnClick;
 
 public class CouponsListActivity extends AppCompatActivity {
 
-    private static final String SELECTED_CATEGORY = "selected_category";
-    private int couponCategoryPosition = -1;
+    private static final String SELECTED_CATEGORY_NAME = "selected_category_name";
+    private String selectedCategory ;
     private Storage storage;
     CouponListAdapter couponsAdapter;
+    List<Coupon> couponList;
 
     @BindView(R.id.searchView)
     SearchView searchView;
@@ -48,21 +52,25 @@ public class CouponsListActivity extends AppCompatActivity {
         storage = Storage.getInstance(this);
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            couponCategoryPosition = bundle.getInt(SELECTED_CATEGORY);
+            selectedCategory = bundle.getString(SELECTED_CATEGORY_NAME);
         }
-        if(couponCategoryPosition == 0){
-            foodTextView.setTextColor(getResources().getColor(R.color.colorAccent));
-        }else{
-            movieTextView.setTextColor(getResources().getColor(R.color.colorAccent));
+        if(selectedCategory != null){
+            if(selectedCategory.equals(CategoryName.Food.name())){
+                foodTextView.setTextColor(getResources().getColor(R.color.colorAccent));
+            }else{
+                movieTextView.setTextColor(getResources().getColor(R.color.colorAccent));
+            }
+            couponList = storage.getCouponModel(selectedCategory);
         }
+
 
         RecyclerView recyclerView = findViewById(R.id.offerListView);
         couponsAdapter = new CouponListAdapter(this);
-        couponsAdapter.setCouponList(storeDealsInPreference().get(0).getCoupons());
+        couponsAdapter.setCouponList(couponList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(couponsAdapter);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -80,7 +88,7 @@ public class CouponsListActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
-        });
+        });*/
     }
 
     @Override
@@ -94,7 +102,7 @@ public class CouponsListActivity extends AppCompatActivity {
     public void foodChoosen(){
         foodTextView.setTextColor(getResources().getColor(R.color.colorAccent));
         movieTextView.setTextColor(getResources().getColor(R.color.colorDarkGrey));
-        couponsAdapter.setCouponList(storeDealsInPreference().get(0).getCoupons());
+        couponsAdapter.setCouponList(storage.getCouponModel(CategoryName.Food.name()));
         couponsAdapter.notifyDataSetChanged();
     }
 
@@ -102,32 +110,7 @@ public class CouponsListActivity extends AppCompatActivity {
     public void movieChoosen(){
         movieTextView.setTextColor(getResources().getColor(R.color.colorAccent));
         foodTextView.setTextColor(getResources().getColor(R.color.colorDarkGrey));
-        couponsAdapter.setCouponList(storeDealsInPreference().get(2).getCoupons());
+        couponsAdapter.setCouponList(storage.getCouponModel(CategoryName.Movie.name()));
         couponsAdapter.notifyDataSetChanged();
-    }
-
-    private List<Category> storeDealsInPreference(){
-
-        ArrayList<Category> categories = new ArrayList<>();
-        ArrayList<Coupon> coupons = new ArrayList<>();
-        coupons.add(new Coupon("Swiggy" , "dsgdkshldshlhlsdcdcdd" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/swiggy.png?alt=media&token=4cd91ddf-e016-4f40-9280-a5fe0814e4c4",
-                "Gurgaon" , "31-Oct-2018" , "CODE-001"));
-        ArrayList<Coupon> coupons2 = new ArrayList<>();
-        coupons2.add(new Coupon("Swigdjj" , "dsgdkshldshlhls" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/swiggy.png?alt=media&token=4cd91ddf-e016-4f40-9280-a5fe0814e4c4",
-                "Gurgaon" , "31-Oct-2018" , "CODE-004"));
-        categories.add(new Category("food" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
-                coupons));
-
-        categories.add(new Category("food" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
-                coupons));
-
-        categories.add(new Category("movies" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
-                coupons2));
-
-        categories.add(new Category("movies" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
-                coupons2));
-
-        storage.saveOffers(categories);
-        return categories;
     }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.nagarro.dealapplication.CouponsListActivity;
 import com.nagarro.dealapplication.R;
+import com.nagarro.dealapplication.Storage;
 import com.nagarro.dealapplication.model.Category;
 import com.squareup.picasso.Picasso;
 
@@ -18,9 +19,10 @@ import java.util.List;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.MyViewHolder> {
 
-    private static final String SELECTED_CATEGORY_POSITION = "selected_category_position";
+    private static final String SELECTED_CATEGORY_NAME = "selected_category_name";
     private List<Category> categoryList;
     private Context context;
+    private Storage storage;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -35,6 +37,8 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     public CategoryListAdapter(Context context) {
         this.context = context;
+        storage = Storage.getInstance(context);
+        categoryList = storage.getCategoryModel();
     }
 
     @Override
@@ -47,7 +51,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        Category category = categoryList.get(position);
+        final Category category = categoryList.get(position);
         holder.name.setText(category.getName());
         Picasso.get().load(category.getIcon()).into(holder.icon);
 
@@ -55,7 +59,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context , CouponsListActivity.class);
-                intent.putExtra(SELECTED_CATEGORY_POSITION , position);
+                intent.putExtra(SELECTED_CATEGORY_NAME , category.getName());
                 context.startActivity(intent);
             }
         });

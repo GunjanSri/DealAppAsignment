@@ -8,11 +8,14 @@ import android.view.Menu;
 
 import com.nagarro.dealapplication.adapter.CategoryListAdapter;
 import com.nagarro.dealapplication.analytics.FbTracker;
+import com.nagarro.dealapplication.database.CategoriesDatabase;
 import com.nagarro.dealapplication.model.Category;
 import com.nagarro.dealapplication.model.Coupon;
+import com.nagarro.dealapplication.model.SingleCategory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CategoryListActivity extends AppCompatActivity {
 
@@ -29,7 +32,7 @@ public class CategoryListActivity extends AppCompatActivity {
         storage = Storage.getInstance(this);
 
         categoryAdapter = new CategoryListAdapter(this);
-        categoryAdapter.setCategoryList(storeDealsInPreference());
+
         recyclerView = findViewById(R.id.offerCategoryListView);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
 
@@ -45,21 +48,5 @@ public class CategoryListActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.actionbar_menu, menu);
         menu.findItem(R.id.menu_about).setIcon(R.drawable.asterix_about_white);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    private List<Category> storeDealsInPreference(){
-
-        ArrayList<Category> categories = new ArrayList<>();
-        ArrayList<Coupon> coupons = new ArrayList<>();
-        coupons.add(new Coupon("Swiggy" , "dsgdkshldshlhls" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/swiggy.png?alt=media&token=4cd91ddf-e016-4f40-9280-a5fe0814e4c4",
-                "Gurgaon" , "31-Oct-2018" , "CODE-001"));
-        categories.add(new Category("food" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
-                coupons));
-
-        categories.add(new Category("movies" , "https://firebasestorage.googleapis.com/v0/b/testprojects-d2801.appspot.com/o/food.png?alt=media&token=ad4778f8-757c-4dd5-baca-7ffd533f0fc8",
-                coupons));
-
-        storage.saveOffers(categories);
-        return categories;
     }
 }

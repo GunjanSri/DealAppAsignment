@@ -1,17 +1,13 @@
 package com.nagarro.dealapplication.model;
 
-import java.util.List;
-
 public class Category{
 
     private String name;
     private String icon;
-    private List<Coupon> coupons;
 
-    public Category(String name, String icon, List<Coupon> coupons) {
+    public Category(String name, String icon) {
         this.name = name;
         this.icon = icon;
-        this.coupons = coupons;
     }
 
     public String getName() {
@@ -28,13 +24,5 @@ public class Category{
 
     public void setIcon(String icon) {
         this.icon = icon;
-    }
-
-    public List<Coupon> getCoupons() {
-        return coupons;
-    }
-
-    public void setCoupons(List<Coupon> coupons) {
-        this.coupons = coupons;
     }
 }
