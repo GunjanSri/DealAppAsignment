@@ -52,7 +52,7 @@ public class ResultDialogFragment extends DefaultDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.progress_spinner, container, false);
+        final View view = inflater.inflate(R.layout.progress_result_dialog, container, false);
         ButterKnife.bind(this, view);
         if(getArguments() != null){
             errorMessage = getArguments().getString(ERROR_MESSAGE);

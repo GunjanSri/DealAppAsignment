@@ -1,5 +1,6 @@
 package com.nagarro.dealapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +8,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nagarro.dealapplication.adapter.CouponListAdapter;
+import com.nagarro.dealapplication.model.Category;
 import com.nagarro.dealapplication.model.CategoryName;
 import com.nagarro.dealapplication.model.Coupon;
 import com.nagarro.dealapplication.storage.CategoryStorage;
@@ -29,8 +33,6 @@ public class CouponsListActivity extends AppCompatActivity {
     CouponListAdapter couponsAdapter;
     List<Coupon> couponList;
 
-    @BindView(R.id.searchView)
-    SearchView searchView;
     @BindView(R.id.foodLayout)
     LinearLayout foodLayout;
     @BindView(R.id.movieLayout)
@@ -39,6 +41,10 @@ public class CouponsListActivity extends AppCompatActivity {
     TextView movieTextView;
     @BindView(R.id.foodTextView)
     TextView foodTextView;
+    @BindView(R.id.noCouponText)
+    TextView noCouponText;
+    @BindView(R.id.offerListView)
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class CouponsListActivity extends AppCompatActivity {
 
         storage = new CategoryStorage(this);
         Bundle bundle = getIntent().getExtras();
+        couponsAdapter = new CouponListAdapter(this);
         if(bundle != null){
             selectedCategory = bundle.getString(SELECTED_CATEGORY_NAME);
         }
@@ -59,33 +66,15 @@ public class CouponsListActivity extends AppCompatActivity {
             }
             couponList = storage.getCouponModel(selectedCategory);
         }
-
-
-        RecyclerView recyclerView = findViewById(R.id.offerListView);
-        couponsAdapter = new CouponListAdapter(this);
-        couponsAdapter.setCouponList(couponList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(couponsAdapter);
-
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                List<Category> categories = storeDealsInPreference();
-                for(Category category : categories){
-                    if(query.contains(category.getName())){
-                        couponsAdapter.setCouponList(category.getCoupons());
-                        couponsAdapter.notifyDataSetChanged();
-                    }
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });*/
+        if(couponList != null && couponList.size() > 0){
+            setVisibilty(View.VISIBLE , View.GONE);
+            couponsAdapter.setCouponList(couponList);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(couponsAdapter);
+        }
+        else{
+            setVisibilty(View.GONE , View.VISIBLE);
+        }
     }
 
     @Override
@@ -95,19 +84,42 @@ public class CouponsListActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(this , SettingsActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick(R.id.foodLayout)
     public void foodChoosen(){
         foodTextView.setTextColor(getResources().getColor(R.color.colorAccent));
         movieTextView.setTextColor(getResources().getColor(R.color.colorDarkGrey));
-        couponsAdapter.setCouponList(storage.getCouponModel(CategoryName.Food.name()));
-        couponsAdapter.notifyDataSetChanged();
+        notifyAdapter(CategoryName.Food.name());
     }
 
     @OnClick(R.id.movieLayout)
     public void movieChoosen(){
         movieTextView.setTextColor(getResources().getColor(R.color.colorAccent));
         foodTextView.setTextColor(getResources().getColor(R.color.colorDarkGrey));
-        couponsAdapter.setCouponList(storage.getCouponModel(CategoryName.Movie.name()));
-        couponsAdapter.notifyDataSetChanged();
+        notifyAdapter(CategoryName.Movie.name());
+    }
+
+    private void notifyAdapter(String categoryName){
+        List<Coupon> coupons = storage.getCouponModel(categoryName);
+        if(coupons != null && coupons.size()>0) {
+            setVisibilty(View.VISIBLE , View.GONE);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(couponsAdapter);
+            couponsAdapter.setCouponList(storage.getCouponModel(categoryName));
+            couponsAdapter.notifyDataSetChanged();
+        }else{
+            setVisibilty(View.GONE , View.VISIBLE);
+        }
+    }
+
+    private void setVisibilty(int recyclerViewVisibilty , int textVisibility){
+        recyclerView.setVisibility(recyclerViewVisibilty);
+        noCouponText.setVisibility(textVisibility);
     }
 }
