@@ -25,7 +25,6 @@ public class CategoryListAdapterTest {
         categoryListAdapter = new CategoryListAdapter(
                 RuntimeEnvironment.application
         );
-
     }
 
     @Test
@@ -38,6 +37,4 @@ public class CategoryListAdapterTest {
 
         assertThat(categoryListAdapter.getItemCount(), is(2));
     }
-
-
 }
